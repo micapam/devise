@@ -181,4 +181,18 @@ class SessionTimeoutTest < Devise::IntegrationTest
     get edit_form_user_path(user, last_request_at: Time.now.utc.to_s)
     get users_path
   end
+
+  test 'does not allow user to sneak in with old cookie' do 
+    user = sign_in_as_user
+    captured_cookie = response.headers['Set-Cookie'].match(/_rails_app_session=([^\;]+)\;/)[1]
+    get expire_user_path(user)
+    get users_path
+    refute warden.authenticated?(:user)
+
+    post user_session_path,
+      params: { 'user[email]' => 'whatever', 'user[password]' => 'woohoo' },
+      headers: { 'Cookie' => "_rails_app_session=#{captured_cookie}" }
+    
+    refute warden.authenticated?(:user)
+  end
 end
