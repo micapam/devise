@@ -14,6 +14,7 @@ class Devise::SessionsController < DeviseController
 
   # POST /resource/sign_in
   def create
+    sign_out resource_name if warden.authenticated? resource_name
     self.resource = warden.authenticate!(auth_options)
     set_flash_message!(:notice, :signed_in)
     sign_in(resource_name, resource)
