@@ -1,8 +1,22 @@
-### Unreleased
+### 4.3.0 - 2017-05-14
+
+* Enhancements
+  * Dependency support added for Rails 5.1.x.
+
+### 4.2.1 - 2017-03-15
 
 * removals
   * `Devise::Mailer#scope_name` and `Devise::Mailer#resource` are now protected
     methods instead of public.
+* bug fixes
+  * Attempt to reset password without the password field in the request now results in a `:blank` validation error.
+    Before this change, Devise would accept the reset password request and log the user in, without validating/changing
+    the password. (by @victor-am)
+  * Confirmation links now expire based on UTC time, working properly when using different timezones. (by @jjuliano)
+* enhancements
+  * Notify the original email when it is changed with a new `Devise.send_email_changed_notification` setting.
+    When using `reconfirmable`, the notification will be sent right away instead of when the unconfirmed email is confirmed.
+    (original change by @ethirajsrinivasan)
 
 ### 4.2.0 - 2016-07-01
 

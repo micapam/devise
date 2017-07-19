@@ -124,7 +124,7 @@ $ rails generate devise MODEL
 
 Next, check the MODEL for any additional configuration options you might want to add, such as confirmable or lockable. If you add an option, be sure to inspect the migration file (created by the generator if your ORM supports them) and uncomment the appropriate section.  For example, if you add the confirmable option in the model, you'll need to uncomment the Confirmable section in the migration. 
 
-Then run `rake db:migrate`
+Then run `rails db:migrate`
 
 You should restart your application after changing Devise's configuration options. Otherwise, you will run into strange errors, for example, users being unable to login and route helpers being undefined.
 
@@ -610,6 +610,6 @@ https://github.com/plataformatec/devise/graphs/contributors
 
 ## License
 
-MIT License. Copyright 2009-2016 Plataformatec. http://plataformatec.com.br
+MIT License. Copyright 2009-2017 Plataformatec. http://plataformatec.com.br
 
 You are not granted rights or licenses to the trademarks of Plataformatec, including without limitation the Devise name or logo.

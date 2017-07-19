@@ -153,7 +153,11 @@ module Devise
   mattr_accessor :pepper
   @@pepper = nil
 
-  # Used to enable sending notification to user when their password is changed
+  # Used to send notification to the original user email when their email is changed.
+  mattr_accessor :send_email_changed_notification
+  @@send_email_changed_notification = false
+
+  # Used to enable sending notification to user when their password is changed.
   mattr_accessor :send_password_change_notification
   @@send_password_change_notification = false
 
@@ -285,6 +289,14 @@ module Devise
   # Stores the token generator
   mattr_accessor :token_generator
   @@token_generator = nil
+
+  def self.rails51? # :nodoc:
+    Rails.gem_version >= Gem::Version.new("5.1.x")
+  end
+
+  def self.activerecord51? # :nodoc:
+    defined?(ActiveRecord) && ActiveRecord.gem_version >= Gem::Version.new("5.1.x")
+  end
 
   # Default way to set up Devise. Run rails generate devise_install to create
   # a fresh initializer with all configuration values.
